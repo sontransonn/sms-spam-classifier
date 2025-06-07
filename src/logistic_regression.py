@@ -1,5 +1,4 @@
 import numpy as np
-
 class LogisticRegression:
     def __init__(self, lr=0.1, num_iter=1000):
         self.lr = lr
@@ -44,5 +43,4 @@ class LogisticRegression:
     def predict(self, X, threshold=0.5):
         z = np.dot(X, self.weights) + self.bias
         y_pred = self.sigmoid(z) 
-        
         return (y_pred >= threshold).astype(int)
