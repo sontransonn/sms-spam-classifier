@@ -3,14 +3,10 @@ from src.data_preprocessor import DataPreprocessor
 from src.logistic_regression import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer 
 
-MODEL_ARTIFACTS_DIR = 'models/'
-CLASSIFIER_MODEL_PATH = os.path.join(MODEL_ARTIFACTS_DIR, 'sms_spam_classifier_model_v1.pkl')
-TFIDF_VECTORIZER_PATH = os.path.join(MODEL_ARTIFACTS_DIR, 'tfidf_vectorizer.pkl')
-
 def predict_message(message: str) -> str:
-    with open(CLASSIFIER_MODEL_PATH, 'rb') as f:
+    with open('models/sms_spam_classifier_model.pkl', 'rb') as f:
         loaded_model: LogisticRegression = pickle.load(f) 
-    with open(TFIDF_VECTORIZER_PATH, 'rb') as f:
+    with open("models/tfidf_vectorizer.pkl", 'rb') as f:
         loaded_vectorizer: TfidfVectorizer = pickle.load(f)
 
     temp_preprocessor = DataPreprocessor() 

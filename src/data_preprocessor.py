@@ -1,6 +1,5 @@
 import pandas as pd
-import re, os
-import string
+import re, os, string
 from sklearn.model_selection import train_test_split
 class DataPreprocessor:
     def __init__(self, test_size=0.2, random_state=42):
@@ -17,8 +16,8 @@ class DataPreprocessor:
         message = re.sub(r'\s+', ' ', message).strip()
         return message
 
-    def preprocess(self, input_data, output_dir):
-        df = pd.read_csv(input_data, encoding='latin-1')[['v1', 'v2']]
+    def preprocess(self, raw_data_file_path, processed_data_output_dir):
+        df = pd.read_csv(raw_data_file_path, encoding='latin-1')[['v1', 'v2']]
         df.columns = ['label', 'message']
         
         df['message'] = df['message'].astype(str).fillna('')
@@ -37,6 +36,6 @@ class DataPreprocessor:
         train_df = pd.DataFrame({'label': y_train.reset_index(drop=True), 'clean_message': X_train.reset_index(drop=True)})
         test_df = pd.DataFrame({'label': y_test.reset_index(drop=True), 'clean_message': X_test.reset_index(drop=True)})
 
-        os.makedirs(output_dir, exist_ok=True) 
-        train_df.to_csv(os.path.join(output_dir, 'train.csv'), index=False)
-        test_df.to_csv(os.path.join(output_dir, 'test.csv'), index=False)
+        os.makedirs(processed_data_output_dir, exist_ok=True) 
+        train_df.to_csv(os.path.join(processed_data_output_dir, 'train.csv'), index=False)
+        test_df.to_csv(os.path.join(processed_data_output_dir, 'test.csv'), index=False)
