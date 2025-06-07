@@ -40,6 +40,12 @@ class LogisticRegression:
             if (i + 1) % 100 == 0:
                 print(f"Epoch {i + 1}/{self.num_iter}, Cost: {cost:.4f}")
 
+    def predict_proba(self, X):
+        z = np.dot(X, self.weights) + self.bias
+        prob_class1 = self.sigmoid(z)
+        prob_class0 = 1 - prob_class1
+        return np.column_stack((prob_class0, prob_class1))
+
     def predict(self, X, threshold=0.5):
         z = np.dot(X, self.weights) + self.bias
         y_pred = self.sigmoid(z) 
